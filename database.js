@@ -10,25 +10,12 @@ const database = mysql.createPool({
 });
 
 database
-.query("select * from movies")
+  .getConnection()
+  .then(() => {
+    console.log("Can reach database");
+  })
+  .catch((err) => {
+    console.error(err);
+  });
 
-.then(([movies])=>{
-   console.log(movies)}
-
-)
-.catch ((err)=>{
-  console.error(err.message);
-
-})
-
-database
-.query("select * from users")
-
-.then(([users])=>{
-   console.log(users)}
-
-)
-.catch ((err)=>{
-  console.error(err.message);
-
-})
+module.exports = database;

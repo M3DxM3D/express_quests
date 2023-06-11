@@ -8,7 +8,7 @@ const getUsers = (req, res) => {
   
       .query("select * from users")
       .then(([users]) => {
-        res.statut(200).json(users);
+        res.json(users);
       })
       .catch((err) => {
         console.error(err);

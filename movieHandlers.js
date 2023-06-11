@@ -1,23 +1,20 @@
 const database = require("./database");
 
 const getMovies = (req, res) => {
-
-
   database
 
     .query("select * from movies")
     .then(([movies]) => {
-      res.statut(200).json(movies);
+      res.json(movies);
     })
     .catch((err) => {
-      console.error(err);
-      res.status(500).send("Error retrieving data from database");
+      console.error(err.message);
+      res.status(500).send("pas bieeeeeeen retrieving data from database");
     });
 };
 
 const getMovieById = (req, res) => {
   const id = parseInt(req.params.id);
-
   database
     .query("select * from movies where id = ?", [id])
     .then(([movies]) => {
@@ -29,11 +26,16 @@ const getMovieById = (req, res) => {
     })
     .catch((err) => {
       console.error(err.message)
-      res.status(500).send("Error retrieving data from database");
+      res.status(500).send("nullllllllllllllllll  retrieving data from database");
     });
 };
 
+const postMovie = (req,res) => {
+  console.log(req.body);
+res.send("Post route is working,c'est la fete")
+
+}
 
 
 
-module.exports = { getMovies, getMovieById };
+module.exports = { getMovies, getMovieById, postMovie };
