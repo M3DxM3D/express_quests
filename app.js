@@ -3,6 +3,10 @@ require('dotenv').config()
 const app = express();
 const port = process.env.APP_PORT 
 
+//utilisation d'un middleware pour que le JSON soit bien lu
+
+app.use(express.json());
+
 
 // chemin racine : bienvenue
 const welcome = (req, res) => {
@@ -28,6 +32,24 @@ app.get("/api/users/:id", userHandlers.getUserById);
 //chemin pour ajouter un film: 
 
 app.post("/api/movies", movieHandlers.postMovie);
+
+
+//chemin pour ajouter un utilisateur: 
+
+app.post("/api/users", userHandlers.postUser);
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

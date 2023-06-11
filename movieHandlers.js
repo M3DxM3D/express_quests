@@ -31,10 +31,25 @@ const getMovieById = (req, res) => {
 };
 
 const postMovie = (req,res) => {
-  console.log(req.body);
-res.send("Post route is working,c'est la fete")
 
-}
+  const { title, director, year, color, duration } = req.body;
+
+  database
+  .query(
+    "INSERT INTO movies (title, director, year, color, duration) VALUES (?,?,?,?,?)",
+    [title, director, year, color, duration]
+  )
+  .then(([result]) => {
+  
+      res.location(`/api/movies/${result.insertId}`).sendStatus(201);
+      })
+
+  .catch((err) => {
+    console.error(err.message)
+    res.status(500).send("Error saving the movie");
+  });
+
+};
 
 
 
