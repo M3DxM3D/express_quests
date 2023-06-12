@@ -26,7 +26,7 @@ const getMovieById = (req, res) => {
     })
     .catch((err) => {
       console.error(err.message)
-      res.status(500).send("nullllllllllllllllll  retrieving data from database");
+      res.status(500).send("error retrieving data from database");
     });
 };
 
@@ -36,7 +36,7 @@ const postMovie = (req,res) => {
 
   database
   .query(
-    "INSERT INTO movies (title, director, year, color, duration) VALUES (?,?,?,?,?)",
+    "INSERT INTO movies(title, director, year, color, duration) VALUES (?,?,?,?,?)",
     [title, director, year, color, duration]
   )
   .then(([result]) => {
@@ -51,6 +51,32 @@ const postMovie = (req,res) => {
 
 };
 
+const updateMovie = (req, res)=> {
+const id= parseInt(req.params.id)
+const { title, director, year, color, duration } = req.body;
 
 
-module.exports = { getMovies, getMovieById, postMovie };
+database
+.query(
+  "UPDATE movies SET title=?, director=?, year=?, color=?, duration=? where id =?",
+  [title, director, year, color, duration, id]
+)
+.then(([result]) => {
+
+  if (result.affectedRows === 0) {
+    res.status(404).send("Not Found");
+  } else {
+    res.sendStatus(204);
+  }
+    })
+
+.catch((err) => {
+  console.error(err.message)
+  res.status(500).send("Error editing the movie");
+});
+
+};
+
+
+
+module.exports = { getMovies, getMovieById, postMovie,updateMovie };

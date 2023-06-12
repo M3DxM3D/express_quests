@@ -22,6 +22,16 @@ const movieHandlers = require("./movieHandlers");
 app.get("/api/movies", movieHandlers.getMovies);
 app.get("/api/movies/:id", movieHandlers.getMovieById);
 
+//chemin pour ajouter un film: 
+
+app.post("/api/movies", movieHandlers.postMovie);
+
+//modifier un film déja présent
+app.put("/api/movies/:id", movieHandlers.updateMovie);
+
+
+
+
 //chemin pour afficher les utilisateurs
 
 const userHandlers = require("./userHandlers");
@@ -29,14 +39,12 @@ const userHandlers = require("./userHandlers");
 app.get("/api/users", userHandlers.getUsers);
 app.get("/api/users/:id", userHandlers.getUserById);
 
-//chemin pour ajouter un film: 
-
-app.post("/api/movies", movieHandlers.postMovie);
-
-
 //chemin pour ajouter un utilisateur: 
 
 app.post("/api/users", userHandlers.postUser);
+
+//modifier un utilisateur déja présent
+app.put("/api/users/:id", userHandlers.updateUser);
 
 
 
